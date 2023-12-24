@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CartDTO {
     private Long id;
-    private List<ProductDTO> items;
+    private List<Long> productIds;
 
 
 

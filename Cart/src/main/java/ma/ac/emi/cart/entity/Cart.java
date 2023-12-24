@@ -12,13 +12,15 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> items;  // This should be a collection type
+    @ElementCollection
+    @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
+    @Column(name = "product_id")
+    private List<Long> productIds;  // Use List<Long> to store productIds
 
     // Constructors, getters, setters, etc.
 
     public Cart() {
-        this.items = new ArrayList<>();
+        this.productIds = new ArrayList<>();
     }
 
     public void setId(Long id) {
@@ -29,15 +31,12 @@ public class Cart {
         return id;
     }
 
-    public List<Product> getItems() {
-        return items;
+    public List<Long> getProductIds() {
+        return productIds;
     }
 
-    public void setItems(List<Product> items) {
-        this.items = items;
-    }
-    public double calculateTotal() {
-        return items.stream().mapToDouble(Product::getPrice).sum();
+    public void setProductIds(List<Long> productIds) {
+        this.productIds = productIds;
     }
 
 
