@@ -27,7 +27,9 @@ public class Service implements AuthService {
     @Override
     public boolean login(String email , String password) {
         try{
-            if(userRepository.findByEmailAndPassword(email, password)!=null) return true;
+            if(userRepository.findByEmailAndPassword(email, password).get(0)!=null) {
+                return true;
+            }
         }catch(Exception e){
             throw new RuntimeException("user not found");
         }

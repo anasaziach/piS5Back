@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Etudiant" />
+        <module name="Inscription" />
+        <module name="Config" />
+        <module name="Gateway" />
+        <module name="Auth" />
+        <module name="Discovery" />
+        <module name="Cours" />
+        <module name="Cart" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Auth" target="19" />
+      <module name="Cart" target="19" />
+      <module name="Config" target="19" />
+      <module name="Cours" target="17" />
+      <module name="Discovery" target="17" />
+      <module name="Etudiant" target="17" />
+      <module name="Gateway" target="17" />
+      <module name="Inscription" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Auth" options="-parameters" />
+      <module name="Cart" options="-parameters" />
+      <module name="Config" options="-parameters" />
+      <module name="Cours" options="-parameters" />
+      <module name="Discovery" options="-parameters" />
+      <module name="Etudiant" options="-parameters" />
+      <module name="Gateway" options="-parameters" />
+      <module name="Inscription" options="-parameters" />
+    </option>
+  </component>
+</project>
