@@ -18,82 +18,31 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
-    public Cart createCart(Cart cart) {
-        return cartRepository.save(cart);
+    public Cart createCart(CartDTO cartDTO) {
+        return cartRepository.save(new Cart(cartDTO.getUserId(),cartDTO.getProductIds()));
     }
 
-    public List<Cart> getAllCarts() {
-        return cartRepository.findAll();
-    }
-
-    public Optional<Cart> getCartById(Long cartId) {
-        return cartRepository.findById(cartId);
-    }
-
-    public Cart updateCart(Long cartId, Cart updatedCart) {
-        Optional<Cart> existingCartOptional = cartRepository.findById(cartId);
-
-        if (existingCartOptional.isPresent()) {
-            Cart existingCart = existingCartOptional.get();
-            // Update properties of the existing cart with those from updatedCart
-            existingCart.setProductIds(updatedCart.getProductIds());
-            // You can update other properties as needed
-
-            return cartRepository.save(existingCart);
-        } else {
-            // Handle cart not found
-            return null;
-        }
+    public List<Cart> getAllCartsByUserId(Long userId) {
+        return cartRepository.findAllByUserId(userId);
     }
 
     public void deleteCart(Long cartId) {
         cartRepository.deleteById(cartId);
     }
     public Cart addProductId(Long cartId, Long productId) {
-        Optional<Cart> cartOptional = cartRepository.findById(cartId);
-
-        if (cartOptional.isPresent()) {
-            Cart cart = cartOptional.get();
-            List<Long> productIds = cart.getProductIds();
-
-            // Add the new productId
-            productIds.add(productId);
-
-            // Update the cart with the modified productIds
-            cart.setProductIds(productIds);
-
-            return cartRepository.save(cart);
-        } else {
-            // Handle cart not found
-            return null;
-        }
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(()-> new RuntimeException("cart not found!"));
+        List<Long> productIds = cart.getProductIds();
+        cart.addProductToCart(productId);
+        return cartRepository.save(cart);
     }
 
     public Cart removeProductId(Long cartId, Long productId) {
-        Optional<Cart> cartOptional = cartRepository.findById(cartId);
-
-        if (cartOptional.isPresent()) {
-            Cart cart = cartOptional.get();
-            List<Long> productIds = cart.getProductIds();
-
-            // Remove the productId
-            productIds.remove(productId);
-
-            // Update the cart with the modified productIds
-            cart.setProductIds(productIds);
-
-            return cartRepository.save(cart);
-        } else {
-            // Handle cart not found
-            return null;
-        }
-    }
-    public CartDTO convertToDTO(Cart cart) {
-        CartDTO cartDTO = new CartDTO();
-        cartDTO.setId(cart.getId());
-        cartDTO.setProductIds(cart.getProductIds());
-        // Set other fields as needed
-        return cartDTO;
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(()-> new RuntimeException("cart not found!"));
+        List<Long> productIds = cart.getProductIds();
+        productIds.remove(productIds);
+        return cartRepository.save(cart);
     }
 }
 

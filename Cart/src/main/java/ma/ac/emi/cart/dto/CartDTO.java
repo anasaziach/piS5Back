@@ -1,5 +1,6 @@
 package ma.ac.emi.cart.dto;
 
+import jakarta.persistence.ElementCollection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartDTO {
-    private Long id;
+    private Long userId;
+    @ElementCollection
     private List<Long> productIds;
 
 

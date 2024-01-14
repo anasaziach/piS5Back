@@ -1,13 +1,14 @@
 package com.example.auth.repositories;
 
 
-import com.example.auth.entities.User;
+import com.example.auth.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
-    List<User> findByEmailAndPassword(String email , String password);
+public interface UserRepository extends JpaRepository<Users,Long> {
+    Optional<Users> findByEmailAndPassword(String email , String password);
+    Optional<Users> findByEmail(String email);
 }

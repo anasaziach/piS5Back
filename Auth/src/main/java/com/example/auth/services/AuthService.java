@@ -2,11 +2,9 @@
 
 
     import com.example.auth.dto.UserDTO;
-    import com.example.auth.entities.User;
-
-    import java.util.List;
+    import com.example.auth.entities.Users;
 
     public interface AuthService {
-        User signup(UserDTO userDTO);
+        Users signup(UserDTO userDTO);
         boolean login(String email , String password);
     }

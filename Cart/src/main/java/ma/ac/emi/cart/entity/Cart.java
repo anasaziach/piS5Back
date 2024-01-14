@@ -2,43 +2,32 @@ package ma.ac.emi.cart.entity;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private Long userId;
     @ElementCollection
-    @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
-    @Column(name = "product_id")
-    private List<Long> productIds;  // Use List<Long> to store productIds
-
-    // Constructors, getters, setters, etc.
-
-    public Cart() {
-        this.productIds = new ArrayList<>();
+    private List<Long> productIds;
+    public void addProductToCart(Long productId) {
+        productIds.add(productId);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public List<Long> getProductIds() {
-        return productIds;
-    }
-
-    public void setProductIds(List<Long> productIds) {
+    public Cart(Long userId, List<Long> productIds) {
+        this.userId = userId;
         this.productIds = productIds;
     }
-
-
-
 }
